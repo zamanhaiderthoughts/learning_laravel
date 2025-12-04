@@ -27,7 +27,7 @@ class UserController extends Controller
         $filters = $request->only(['search']);
 
         return Inertia::render(
-            'Contact',
+            'Contacts',
             [
                 'time' => $time,
                 'users' => $users,
@@ -65,7 +65,17 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $userModel = User::findOrFail($id);
+        $user = [
+            'id' => $userModel->id,
+            'name' => $userModel->name,
+        ];
+        return Inertia::render(
+            'Contact',
+            [
+                'user' => $user,
+            ]
+        );
     }
 
     /**

@@ -57,14 +57,6 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
         $userModel = User::findOrFail($id);
         $user = [
             'id' => $userModel->id,
@@ -76,6 +68,14 @@ class UserController extends Controller
                 'user' => $user,
             ]
         );
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
     }
 
     /**

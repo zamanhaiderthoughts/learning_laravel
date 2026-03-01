@@ -5,16 +5,17 @@ import { Inertia } from "@inertiajs/inertia";
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
-    user: Object,
+    job: Object,
 });
 </script>
 
 <template>
     <AppLayout title="Contact">
-        <template #header> User Info </template>
+        <template #header> Job Detail </template>
         <div class="p-4">
-            <h1>ID : <strong>{{ user.id }}</strong></h1>
-            <h1>Name : <strong>{{ user.name }}</strong></h1>
+            <h1>Title: {{ job.title }}</h1>
+            <p>Description : {{ job.description }}</p>
+            <h1>Salary: {{ job?.salary }}</h1>
         </div>
     </AppLayout>
 </template>

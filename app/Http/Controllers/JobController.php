@@ -14,7 +14,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::with('employer')->paginate(5);
+        $jobs = Job::with('employer')->paginate(10);
         return Inertia::render('Job/Index',
         [
             'jobs' => $jobs
@@ -38,15 +38,25 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        dd('Hello'); 
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'company' => 'required',
+            'location' => 'required',
+            'salary' => 'required|numeric|min:0',
+            'employer_id' => 'required|exists:employers,id',
+        ]);
+
+        Job::create($request->all());
+
+        return redirect()->route('jobs')->with('success', 'Job created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Job $job)
     {
-        $job = Job::findOrFail($id);
         return Inertia::render('Job/Show',
         [
             'job' => $job
@@ -56,24 +66,38 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Job $job)
     {
-        //
+        return Inertia::render('Job/Edit',
+        [
+            'job' => $job
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Job $job)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'location' => 'required',
+            'salary' => 'required|numeric|min:0',
+        ]);
+
+        $job->update($request->all());
+
+        return redirect()->route('jobs')->with('success', 'Job updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $job)
     {
-        //
+            $job->delete();
+
+            return redirect()->route('jobs')->with('success', 'Job deleted successfully.');
     }
 }

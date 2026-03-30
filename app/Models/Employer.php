@@ -11,6 +11,7 @@ class Employer extends Model
     use HasFactory;
 
     protected $table = 'employers';
+    
 
     function jobs() {
         return $this->hasMany(Job::class);

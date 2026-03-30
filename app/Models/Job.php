@@ -16,6 +16,7 @@ class Job extends Model
         'company',
         'location',
         'salary',
+        'employer_id',
     ];
 
     public function employer() {

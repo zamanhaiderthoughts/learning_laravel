@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJobRequest;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Job;
+
 
 class JobController extends Controller
 {
@@ -36,19 +38,9 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'company' => 'required',
-            'location' => 'required',
-            'salary' => 'required|numeric|min:0',
-            'employer_id' => 'required|exists:employers,id',
-        ]);
-
-        Job::create($request->all());
-
+        Job::create($request->validated());
         return redirect()->route('jobs')->with('success', 'Job created successfully.');
     }
 
@@ -77,16 +69,10 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(StoreJobRequest $request, Job $job)
     {
-        $request->validate([
-            'title' => 'required',
-            'company' => 'required',
-            'location' => 'required',
-            'salary' => 'required|numeric|min:0',
-        ]);
 
-        $job->update($request->all());
+        $job->update($request->validated());
 
         return redirect()->route('jobs')->with('success', 'Job updated successfully.');
     }

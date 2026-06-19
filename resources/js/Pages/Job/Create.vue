@@ -9,12 +9,15 @@ const form = useForm({
     company: '',
     location: '',
     description: '',
-    employer_id: 1,
 });
 
 
 const submit = () => {
     form.post(route('job.store'));
+};
+
+const cancel = () => {
+    window.location.href = '/jobs';
 };
 </script>
 
@@ -80,7 +83,7 @@ const submit = () => {
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button type="button"
-                                class="text-sm/6 font-semibold text-gray-900 dark:text-white">Cancel</button>
+                                class="text-sm/6 font-semibold text-gray-900 dark:text-white" @click="cancel">Cancel</button>
                             <button type="submit" :disabled="form.processing"
                                 class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:focus-visible:outline-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">{{ form.processing ? 'Saving...' : 'Save' }}</button>
                         </div>

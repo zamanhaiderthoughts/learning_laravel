@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobRequest;
-use App\Models\Employer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Job;
-
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -16,7 +15,10 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::with('employer')->paginate(10);
+        $jobs = Job::with('user')
+            ->where('user_id', Auth::id())
+            ->paginate(10);
+
         return Inertia::render('Job/Index',
         [
             'jobs' => $jobs
@@ -28,11 +30,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $employers = Employer::all();
-        return Inertia::render('Job/Create',
-        [
-            'employers' => $employers
-        ]);
+        return Inertia::render('Job/Create');
     }
 
     /**
@@ -40,7 +38,14 @@ class JobController extends Controller
      */
     public function store(StoreJobRequest $request)
     {
-        Job::create($request->validated());
+        Job::create([
+            'title' => $request->validated()['title'],
+            'description' => $request->validated()['description'],
+            'user_id' => Auth::id(),
+            'company' => $request->validated()['company'],
+            'location' => $request->validated()['location'],
+            'salary' => $request->validated()['salary'],
+        ]);
         return redirect()->route('jobs')->with('success', 'Job created successfully.');
     }
 

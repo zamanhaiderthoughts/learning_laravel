@@ -5,6 +5,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 const props = defineProps({
     jobs: Object,
 });
+console.log(props.jobs);
 </script>
 
 <template>
@@ -27,7 +28,7 @@ const props = defineProps({
                 </thead>
                 <tbody>
                     <tr v-for="job in jobs.data" :key="job.id" class="hover:bg-gray-50">
-                        <td class="border border-gray-300 px-4 py-2">{{ job.employer?.name ?? 'No employer' }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ job.user?.name ?? 'No employer' }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ job.title }}</td>
                         <td class="border border-gray-300 px-4 py-2">
                             <Link :href="`/job/${job.id}/detail`" class="text-blue-600 hover:underline">View</Link>

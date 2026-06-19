@@ -27,7 +27,7 @@ class StoreJobRequest extends FormRequest
             'company' => 'required',
             'location' => 'required',
             'salary' => 'required|numeric|min:0',
-            'employer_id' => 'exists:employers,id',
+            'user_id' => 'exists:users,id',
         ];
     }
 
@@ -41,7 +41,7 @@ class StoreJobRequest extends FormRequest
             'salary.required' => 'The salary is required.',
             'salary.numeric' => 'The salary must be a number.',
             'salary.min' => 'The salary must be at least 0.',
-            'employer_id.exists' => 'The selected employer does not exist.',
+            'user_id.exists' => 'The selected user does not exist.',
         ];
     }
 }

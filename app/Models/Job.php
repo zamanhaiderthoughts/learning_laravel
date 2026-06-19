@@ -16,14 +16,10 @@ class Job extends Model
         'company',
         'location',
         'salary',
-        'employer_id',
+        'user_id',
     ];
 
-    public function employer() {
-        return $this->belongsTo(Employer::class, 'employer_id');
-    }
-
-    public function tags() {
-         return $this->belongsToMany(Tag::class,'job_tag', 'tag_listing_id');
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

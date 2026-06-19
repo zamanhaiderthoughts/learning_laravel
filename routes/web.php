@@ -29,9 +29,12 @@ Route::get('/', function () {
         return Inertia::render('Dashboard');
         })->name('dashboard');
         Route::get('/contacts', [UserController::class, 'index'])->name('contact');
-        Route::get('/contact/{id}/detail', [UserController::class, 'show'])->name('contact.detail');
+        Route::get('/contact/{user}/detail', [UserController::class, 'show'])->name('contact.detail');
         Route::get('/jobs', [JobController::class, 'index'])->name('jobs');
-        Route::get('/job/{id}/detail', [JobController::class, 'show'])->name('job.show');
+        Route::get('/job/{job}/detail', [JobController::class, 'show'])->name('job.show');
         Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
-        Route::post('/jobs', [JobController::class, 'store'])->name('jobs.store');
+        Route::post('/jobs', [JobController::class, 'store'])->name('job.store');
+        Route::get('/job/{job}/edit', [JobController::class, 'edit'])->name('job.edit');
+        Route::patch('/job/{job}', [JobController::class, 'update'])->name('job.update');
+        Route::delete('/job/{job}/delete', [JobController::class, 'destroy'])->name('job.destroy');
     });

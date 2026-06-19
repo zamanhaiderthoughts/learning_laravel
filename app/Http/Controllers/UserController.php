@@ -55,9 +55,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        $userModel = User::findOrFail($id);
+        $userModel = User::findOrFail($user->id);
         $user = [
             'id' => $userModel->id,
             'name' => $userModel->name,
